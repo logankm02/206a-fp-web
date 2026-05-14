@@ -1,28 +1,29 @@
 import EmberLogo from './components/EmberLogo.jsx'
 
-/* ── Logo in hero ── */
+const base = import.meta.env.BASE_URL
+
 function LogoWindow() {
   return (
-    <div className="logo-wrap">
+    <div className="flex items-center justify-center shrink-0">
       <EmberLogo size={150} />
     </div>
   )
 }
 
 function PageDivider() {
-  return <div className="page-divider" />
+  return <div className="border-t border-[#D0D0D0] my-10" />
 }
 
 /* ── Hero ── */
 function HeroContent() {
   return (
-    <div className="hero-layout">
+    <div className="grid grid-cols-[1fr_auto] gap-8 items-center max-[680px]:grid-cols-1">
       <div>
-        <div className="accent-bar" />
-        <h1 className="pixel-heading hero-title">
+        <div className="h-1 bg-gradient-to-r from-orange to-orange-dark mb-7" />
+        <h1 className="font-pixel leading-[1.8] tracking-tight text-[clamp(16px,3vw,28px)] mb-8">
           C106A/206A<br />Final Project:<br />Ember Robotics
         </h1>
-        <p className="hero-team">
+        <p className="font-mono text-sm leading-loose text-[#333]">
           Team 10<br />
           Erik De Jesus Rodriguez Silva<br />
           Vardaan Tekriwal<br />
@@ -40,43 +41,32 @@ function HeroContent() {
 function OverviewContent() {
   return (
     <div>
-      <h2 className="section-title">Project Overview</h2>
-      <div className="two-col-wide">
+      <h2 className="font-pixel text-[clamp(13px,1.8vw,17px)] mb-7 text-center tracking-[1px]">Project Overview</h2>
+      <div className="grid [grid-template-columns:1.2fr_0.8fr] gap-8 items-start max-[680px]:grid-cols-1">
         <div>
-          <p className="mono-body" style={{ marginBottom: 20 }}>
+          <p className="font-mono text-[15px] leading-[1.9] mb-5">
             An industry project in collaboration with{' '}
             <strong>Ember Robotics</strong> to extend previous work on
             glass slide transfer — this time targeting{' '}
             <strong>silicon wafers</strong> with tighter tolerances and
             new perception challenges.
           </p>
-          <ul className="bullet-list">
-            <li>Design a custom wafer gripper end-effector</li>
-            <li>Write a computer vision module to detect wafer position inside storage trays</li>
-            <li>Perform autonomous pick-and-place using inverse kinematics</li>
+          <ul className="list-disc pl-6 font-mono text-[15px] leading-loose">
+            <li className="mb-1">Design a custom wafer gripper end-effector</li>
+            <li className="mb-1">Write a computer vision module to detect wafer position inside storage trays</li>
+            <li className="mb-1">Perform autonomous pick-and-place using inverse kinematics</li>
           </ul>
-          <div className="sub-section">
-            <p className="sub-section-title">Hardware</p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-              {['Techman TM12 arm', 'RealSense D435i', 'Arduino gripper', 'ROS 2'].map(t => (
-                <span key={t} className="chip">{t}</span>
+          <div className="mt-7 pt-7 border-t border-[#D0D0D0]">
+            <p className="font-pixel text-[10px] text-[#666] mb-4 tracking-[1px] uppercase">Hardware</p>
+            <div className="flex flex-wrap gap-1.5">
+              {['Techman TM12 arm', 'RealSense D435i', 'Arduino gripper'].map(t => (
+                <span key={t} className="inline-block bg-[#E0E0E0] border border-[#BDBDBD] font-mono text-xs px-2 py-0.5">{t}</span>
               ))}
             </div>
           </div>
         </div>
         <div className="img-frame">
-          <img src="/robot_arm.jpg" alt="TM12 robot arm" onError={e => { e.target.style.display = 'none' }} />
-          <div style={{
-            aspectRatio: '3/4',
-            background: '#1a1a1a',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#555', textAlign: 'center', lineHeight: 2, padding: 16 }}>
-              Techman TM12<br />Collaborative Arm
-            </span>
-          </div>
+          <img src={`${base}overview.png`} alt="Project overview" className="block w-full h-auto" />
         </div>
       </div>
     </div>
@@ -85,48 +75,50 @@ function OverviewContent() {
 
 /* ── Wafer Gripper ── */
 function WaferGripperContent() {
+  const future = [
+    "Replace electrical tape with rubber or PEEK pads that won't damage wafer surfaces",
+    'Re-manufacture in lightweight steel for production-grade durability',
+    'Tighten gear mesh to reduce backlash below 0.1 mm',
+  ]
+
   return (
     <div>
-      <h2 className="section-title">Wafer Gripper</h2>
-      <div className="two-col">
-        {/* Design */}
+      <h2 className="font-pixel text-[clamp(13px,1.8vw,17px)] mb-7 text-center tracking-[1px]">Wafer Gripper</h2>
+      <div className="grid grid-cols-2 gap-8 items-start max-[680px]:grid-cols-1">
         <div>
-          <p className="sub-section-title" style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#666', marginBottom: 14, letterSpacing: 1 }}>DESIGN</p>
-          <ul className="bullet-list">
-            <li>Total clearance ~5 mm between gripper fingers and wafer slot walls</li>
-            <li>Reuses existing servo and attachment points to reduce mechanical risk</li>
-            <li>3D-printed PLA body with gear-driven symmetric jaw closure</li>
-            <li>Rigorous testing to eliminate drag and gear backlash</li>
-            <li>Electrical tape on contact surfaces for grip (proof-of-concept)</li>
+          <p className="font-pixel text-[9px] text-[#666] mb-3.5 tracking-[1px] uppercase">Design</p>
+          <ul className="list-disc pl-6 font-mono text-[15px] leading-loose">
+            <li className="mb-1">Total clearance ~5 mm between gripper fingers and wafer slot walls</li>
+            <li className="mb-1">Reuses existing servo and attachment points to reduce mechanical risk</li>
+            <li className="mb-1">3D-printed PLA body with gear-driven symmetric jaw closure</li>
+            <li className="mb-1">Rigorous testing to eliminate drag and gear backlash</li>
+            <li className="mb-1">Electrical tape on contact surfaces for grip (proof-of-concept)</li>
           </ul>
-
-          <div className="sub-section">
-            <p className="sub-section-title" style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#666', marginBottom: 14, letterSpacing: 1 }}>FUTURE IMPROVEMENTS</p>
-            <ul className="diff-list">
-              <li>Replace electrical tape with rubber or PEEK pads that won't damage wafer surfaces</li>
-              <li>Re-manufacture in lightweight steel for production-grade durability</li>
-              <li>Tighten gear mesh to reduce backlash below 0.1 mm</li>
+          <div className="mt-7 pt-7 border-t border-[#D0D0D0]">
+            <p className="font-pixel text-[9px] text-[#666] mb-3.5 tracking-[1px] uppercase">Future Improvements</p>
+            <ul className="list-none pl-0 space-y-1">
+              {future.map((f, i) => (
+                <li key={i} className="flex gap-3 font-mono text-sm leading-[1.9]">
+                  <span className="text-orange shrink-0">●</span>
+                  <span>{f}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
-
-        {/* Renders */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="flex flex-col gap-4">
           <div className="img-frame">
-            <img src="/gripper_photo.jpg" alt="Gripper prototype" onError={e => e.target.style.display='none'} />
-            <div style={{ aspectRatio: '1', background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 8, color: '#444', textAlign: 'center', lineHeight: 2, padding: 12 }}>
-                3D-Printed<br />Gripper Prototype
-              </span>
-            </div>
+            <model-viewer
+              src={`${base}end-effector.glb`}
+              alt="End effector CAD model"
+              camera-controls
+              auto-rotate
+              rotation-per-second="12deg"
+              style={{ height: '100%', width: '100%', aspectRatio: '1', background: '#2a2a2a' }}
+            />
           </div>
-          <div className="img-frame">
-            <img src="/gripper_cad.jpg" alt="CAD render" onError={e => e.target.style.display='none'} />
-            <div style={{ aspectRatio: '1', background: '#2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 8, color: '#555', textAlign: 'center', lineHeight: 2, padding: 12 }}>
-                CAD Render
-              </span>
-            </div>
+          <div className="img-frame self-start">
+            <img src={`${base}gripper.png`} alt="Gripper prototype" className="block w-auto max-w-full max-h-[300px] h-auto" />
           </div>
         </div>
       </div>
@@ -160,44 +152,48 @@ function ComputerVisionContent() {
 
   return (
     <div>
-      <h2 className="section-title">Computer Vision</h2>
-
-      <div className="two-col-wide">
+      <h2 className="font-pixel text-[clamp(13px,1.8vw,17px)] mb-7 text-center tracking-[1px]">Computer Vision</h2>
+      <div className="grid [grid-template-columns:1.2fr_0.8fr] gap-8 items-start max-[680px]:grid-cols-1">
         <div>
-          <p className="sub-section-title" style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#666', marginBottom: 14, letterSpacing: 1 }}>DETECTION PIPELINE</p>
-          <div className="pipeline">
+          <p className="font-pixel text-[9px] text-[#666] mb-3.5 tracking-[1px] uppercase">Detection Pipeline</p>
+          <div className="flex flex-col gap-3 mb-6">
             {pipeline.map((step, i) => (
-              <div key={i} className="pipeline-step">
-                <div className="pipeline-step-num">{i + 1}</div>
+              <div key={i} className="flex items-start gap-3">
+                <div className="w-7 h-7 bg-orange text-white flex items-center justify-center font-pixel text-[9px] shrink-0">{i + 1}</div>
                 <div>
-                  <strong style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, lineHeight: 2 }}>{step.label}</strong>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: '#333', marginTop: 2 }}>{step.desc}</div>
+                  <strong className="font-pixel text-[9px] leading-loose block">{step.label}</strong>
+                  <span className="font-mono text-[13px] text-[#333]">{step.desc}</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
-
         <div>
-          <div className="img-frame" style={{ marginBottom: 20 }}>
-            <img src="/pick_place_result.jpg" alt="Pick-place result with crosshair overlay" />
+          <div className="img-frame mb-5">
+            <img src={`${base}pick_place_result.jpg`} alt="Pick-place result with crosshair overlay" className="block w-full h-auto" />
           </div>
           <div className="img-frame">
-            <img src="/debug_contour.jpg" alt="Contour debug output" />
+            <img src={`${base}debug_contour.jpg`} alt="Contour debug output" className="block w-full h-auto" />
           </div>
         </div>
       </div>
-
-      <div className="sub-section">
-        <div className="two-col">
+      <div className="mt-7 pt-7 border-t border-[#D0D0D0]">
+        <div className="grid grid-cols-2 gap-8 items-start max-[680px]:grid-cols-1">
           <div>
-            <p className="sub-section-title" style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#666', marginBottom: 14, letterSpacing: 1 }}>CHALLENGES</p>
-            {difficulties.map((d, i) => <p key={i} className="diff-block">{d}</p>)}
+            <p className="font-pixel text-[9px] text-[#666] mb-3.5 tracking-[1px] uppercase">Challenges</p>
+            {difficulties.map((d, i) => (
+              <p key={i} className="border-l-[3px] border-[#C0C0C0] pl-4 my-1.5 font-mono text-sm leading-[1.9] text-[#333]">{d}</p>
+            ))}
           </div>
           <div>
-            <p className="sub-section-title" style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#666', marginBottom: 14, letterSpacing: 1 }}>FUTURE IMPROVEMENTS</p>
-            <ul className="diff-list">
-              {future.map((f, i) => <li key={i}>{f}</li>)}
+            <p className="font-pixel text-[9px] text-[#666] mb-3.5 tracking-[1px] uppercase">Future Improvements</p>
+            <ul className="list-none pl-0 space-y-1">
+              {future.map((f, i) => (
+                <li key={i} className="flex gap-3 font-mono text-sm leading-[1.9]">
+                  <span className="text-orange shrink-0">●</span>
+                  <span>{f}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -231,33 +227,38 @@ function PathPlanningContent() {
 
   return (
     <div>
-      <h2 className="section-title">IK / Path Planning</h2>
-
-      <div className="two-col">
+      <h2 className="font-pixel text-[clamp(13px,1.8vw,17px)] mb-7 text-center tracking-[1px]">IK / Path Planning</h2>
+      <div className="grid grid-cols-2 gap-8 items-start max-[680px]:grid-cols-1">
         <div>
-          <p className="sub-section-title" style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#666', marginBottom: 14, letterSpacing: 1 }}>TRANSFER SEQUENCE</p>
-          <div className="ik-steps">
+          <p className="font-pixel text-[9px] text-[#666] mb-3.5 tracking-[1px] uppercase">Transfer Sequence</p>
+          <div className="flex flex-col gap-2">
             {steps.map((s, i) => (
-              <div key={i} className="ik-step">
-                <span className="ik-step-num">{i + 1}.</span>
+              <div key={i} className="flex items-center gap-4 px-3.5 py-2.5 border-l-4 border-orange bg-[#FAFAFA] font-mono text-sm">
+                <span className="font-pixel text-[9px] text-orange-dark w-4 shrink-0">{i + 1}.</span>
                 <span>{s}</span>
               </div>
             ))}
           </div>
-
-          <div style={{ marginTop: 24 }}>
-            <p className="sub-section-title" style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#666', marginBottom: 14, letterSpacing: 1 }}>FUTURE IMPROVEMENTS</p>
-            <ul className="diff-list">
-              {future.map((f, i) => <li key={i}>{f}</li>)}
+          <div className="mt-6">
+            <p className="font-pixel text-[9px] text-[#666] mb-3.5 tracking-[1px] uppercase">Future Improvements</p>
+            <ul className="list-none pl-0 space-y-1">
+              {future.map((f, i) => (
+                <li key={i} className="flex gap-3 font-mono text-sm leading-[1.9]">
+                  <span className="text-orange shrink-0">●</span>
+                  <span>{f}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="flex flex-col gap-4">
+          <div className="img-frame">
+            <img src={`${base}ik-screenshot.png`} alt="IK path planning screenshot" className="block w-full h-auto" />
+          </div>
           {notes.map((n, i) => (
-            <div key={i} className="tech-card">
-              <div className="tech-card-title">{n.title}</div>
-              <div className="tech-card-body">{n.body}</div>
+            <div key={i} className="border border-[#C0C0C0] p-3.5 bg-[#FAFAFA]">
+              <div className="font-pixel text-[9px] mb-2.5 text-orange-dark leading-[1.7]">{n.title}</div>
+              <div className="font-mono text-[13px] leading-[1.8] text-[#333]">{n.body}</div>
             </div>
           ))}
         </div>
@@ -277,40 +278,27 @@ function TechDeepDiveContent() {
     { title: 'hsv_tune.py', body: 'Interactive trackbar tool for tuning HSV thresholds live against RealSense stream' },
   ]
 
+  const Kw = ({ children }) => (
+    <span className="bg-[#F0F0F0] border border-[#CCC] px-1.5 py-px font-mono text-[13px]">{children}</span>
+  )
+
   return (
     <div>
-      <h2 className="section-title">Technical Deep Dive</h2>
-      <p className="mono-body" style={{ marginBottom: 20, color: '#444' }}>
-        The system runs as a <span className="kw">ROS 2</span> workspace with modular nodes for perception,
+      <h2 className="font-pixel text-[clamp(13px,1.8vw,17px)] mb-7 text-center tracking-[1px]">Technical Deep Dive</h2>
+      <p className="font-mono text-[15px] leading-[1.9] mb-5 text-[#444]">
+        The system runs as a <Kw>ROS 2</Kw> workspace with modular nodes for perception,
         planning, and actuation. Detection uses{' '}
-        <span className="kw">SAM2-tiny</span> + <span className="kw">Grounding DINO-tiny</span> on a Jetson Nano
+        <Kw>SAM2-tiny</Kw> + <Kw>Grounding DINO-tiny</Kw> on a Jetson Nano
         (GPU-constrained). Motion planning goes through{' '}
-        <span className="kw">MoveIt 2</span> with the <span className="kw">tmr_arm</span> planning group.
+        <Kw>MoveIt 2</Kw> with the <Kw>tmr_arm</Kw> planning group.
       </p>
-      <div className="tech-grid">
+      <div className="grid [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))] gap-4 mt-5">
         {modules.map((m, i) => (
-          <div key={i} className="tech-card">
-            <div className="tech-card-title">{m.title}</div>
-            <div className="tech-card-body">{m.body}</div>
+          <div key={i} className="border border-[#C0C0C0] p-3.5 bg-[#FAFAFA]">
+            <div className="font-pixel text-[9px] mb-2.5 text-orange-dark leading-[1.7]">{m.title}</div>
+            <div className="font-mono text-[13px] leading-[1.8] text-[#333]">{m.body}</div>
           </div>
         ))}
-      </div>
-
-      <div className="sub-section">
-        <p className="sub-section-title" style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#666', marginBottom: 14, letterSpacing: 1 }}>SYSTEM ARCHITECTURE</p>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, lineHeight: 1.9, background: '#111', color: '#00FF41', padding: 20, border: '2px solid #404040' }}>
-          <pre style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{`pick_and_place.py  (MAIN NODE)
-  ├─ IKPlanner          ─── MoveIt /compute_ik
-  ├─ SlideDetector      ─── TF frame monitor
-  ├─ GSAMSlideDetect    ─── /detect_slides service
-  │    ├─ SAM2-tiny     ─── segmentation
-  │    └─ DINO-tiny     ─── bounding box
-  └─ GripperServer      ─── Arduino serial
-
-Camera: RealSense D435i  (1280×720 @ 30 fps)
-Robot:  Techman TM12     (6-DOF collaborative)
-Serial: /dev/ttyCH341USB0 @ 115200 baud`}</pre>
-        </div>
       </div>
     </div>
   )
@@ -320,33 +308,19 @@ Serial: /dev/ttyCH341USB0 @ 115200 baud`}</pre>
 function VideoDemoContent() {
   return (
     <div>
-      <h2 className="section-title">Video Demo</h2>
-      <div className="two-col">
-        <div className="video-placeholder">
-          <div className="video-placeholder-text">
-            [ DEMO VIDEO ]<br />
-            <span style={{ fontSize: 9 }}>coming soon</span>
-          </div>
-        </div>
+      <h2 className="font-pixel text-[clamp(13px,1.8vw,17px)] mb-7 text-center tracking-[1px]">Video Demo</h2>
+      <div className="grid grid-cols-2 gap-8 items-start max-[680px]:grid-cols-1">
+        <video controls className="w-full block border-2 border-[#404040]">
+          <source src={`${base}IMG_2082.MOV.mp4`} type="video/mp4" />
+        </video>
         <div>
-          <p className="sub-section-title" style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: '#666', marginBottom: 14, letterSpacing: 1 }}>WHAT TO WATCH FOR</p>
-          <ul className="bullet-list" style={{ fontSize: 14 }}>
-            <li>Grounding DINO drawing tray bounding boxes live on the camera feed</li>
-            <li>SAM2 refining the mask and highlighting occupied vs. empty slots</li>
-            <li>TM12 arm approaching and lowering with the custom gripper</li>
-            <li>Successful wafer lift from source tray and placement in destination</li>
+          <p className="font-pixel text-[9px] text-[#666] mb-3.5 tracking-[1px] uppercase">What to Watch For</p>
+          <ul className="list-disc pl-6 font-mono text-sm leading-loose">
+            <li className="mb-1">Grounding DINO drawing tray bounding boxes live on the camera feed</li>
+            <li className="mb-1">SAM2 refining the mask and highlighting occupied vs. empty slots</li>
+            <li className="mb-1">TM12 arm approaching and lowering with the custom gripper</li>
+            <li className="mb-1">Successful wafer lift from source tray and placement in destination</li>
           </ul>
-
-          <div className="sub-section">
-            <div className="img-frame">
-              <img src="/robot_demo.jpg" alt="Robot demo photo" onError={e => e.target.style.display='none'} />
-              <div style={{ aspectRatio: '4/3', background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 8, color: '#444', textAlign: 'center', lineHeight: 2, padding: 12 }}>
-                  TM12 with wafer gripper<br />over target tray
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -356,17 +330,17 @@ function VideoDemoContent() {
 /* ── Root ── */
 export default function App() {
   return (
-    <main>
-      <div className="win page-win">
-        <div className="win-titlebar page-titlebar">
-          <span className="page-title-text">C106A / 206A — Ember Robotics Final Project</span>
-          <div style={{ display: 'flex', gap: 2 }}>
+    <main className="px-4 py-8 pb-16">
+      <div className="win">
+        <div className="win-titlebar">
+          <span className="font-pixel text-[8px] text-white tracking-[0.5px] truncate">C106A / 206A — Ember Robotics Final Project</span>
+          <div className="flex gap-0.5">
             <span className="win-btn">_</span>
             <span className="win-btn">□</span>
             <span className="win-btn">✕</span>
           </div>
         </div>
-        <div className="win-body page-body">
+        <div className="p-10 max-[680px]:p-5">
           <HeroContent />
           <PageDivider />
           <OverviewContent />
@@ -382,7 +356,7 @@ export default function App() {
           <VideoDemoContent />
         </div>
       </div>
-      <footer style={{ textAlign: 'center', fontFamily: 'var(--font-pixel)', fontSize: 8, color: '#888', marginTop: 16 }}>
+      <footer className="text-center font-pixel text-[8px] text-[#888] mt-4">
         C106A / 206A · Spring 2026 · Team 10 · Ember Robotics
       </footer>
     </main>
